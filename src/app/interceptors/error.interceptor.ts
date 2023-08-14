@@ -25,7 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   private handleError(error: HttpErrorResponse): Observable<HttpEvent<unknown>> {
     this.loadingService.onLoadingFinished();
     if (error.status === 0) {
-      window.location.href = environment.MAIN_API_URL;
+      window.location.href = environment.JENKINS_SERVICE_API_URL;
     }
 
     if (error.status === HttpStatus.BAD_REQUEST) {

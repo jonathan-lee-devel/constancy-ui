@@ -20,38 +20,38 @@ export class OrganizationService {
               private router: Router) { }
 
   createOrganization(name: string): Observable<OrganizationDto> {
-    return this.httpClient.post<OrganizationDto>(`${environment.MAIN_API_URL}/organizations`, {name});
+    return this.httpClient.post<OrganizationDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations`, {name});
   }
 
   getOrganizationById(organizationId: string): Observable<OrganizationDto> {
-    return this.httpClient.get<OrganizationDto>(`${environment.MAIN_API_URL}/organizations/${organizationId}`);
+    return this.httpClient.get<OrganizationDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations/${organizationId}`);
   }
 
   getOrganizationSnippetById(organizationId: string): Observable<OrganizationSnippetDto> {
-    return this.httpClient.get<OrganizationSnippetDto>(`${environment.MAIN_API_URL}/organizations/${organizationId}/snippet`);
+    return this.httpClient.get<OrganizationSnippetDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations/${organizationId}/snippet`);
   }
 
   addAdministratorAsMember(
       organizationId: string,
       administratorEmail: string,
   ): Observable<OrganizationMembershipStatusDto> {
-    return this.httpClient.patch<OrganizationMembershipStatusDto>(`${environment.MAIN_API_URL}/organizations/update-admin-join-as-member/${organizationId}`, {administratorEmailToUpdate: administratorEmail});
+    return this.httpClient.patch<OrganizationMembershipStatusDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations/update-admin-join-as-member/${organizationId}`, {administratorEmailToUpdate: administratorEmail});
   }
 
   addMemberAsAdministrator(organizationId: string, memberEmail: string): Observable<OrganizationDto> {
-    return this.httpClient.patch<OrganizationDto>(`${environment.MAIN_API_URL}/organizations/update-member-join-as-admin/${organizationId}`, {email: memberEmail});
+    return this.httpClient.patch<OrganizationDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations/update-member-join-as-admin/${organizationId}`, {email: memberEmail});
   }
 
   removeOrganizationAdministrator(organizationId: string, administratorEmail: string): Observable<OrganizationDto> {
-    return this.httpClient.patch<OrganizationDto>(`${environment.MAIN_API_URL}/organizations/${organizationId}/administrators/remove`, {administratorEmailToRemove: administratorEmail});
+    return this.httpClient.patch<OrganizationDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations/${organizationId}/administrators/remove`, {administratorEmailToRemove: administratorEmail});
   }
 
   removeOrganizationMember(organizationId: string, memberEmail: string): Observable<OrganizationDto> {
-    return this.httpClient.patch<OrganizationDto>(`${environment.MAIN_API_URL}/organizations/${organizationId}/members/remove`, {memberEmailToRemove: memberEmail});
+    return this.httpClient.patch<OrganizationDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations/${organizationId}/members/remove`, {memberEmailToRemove: memberEmail});
   }
 
   getOrganizationsWhereInvolved(): Observable<OrganizationDto[]> {
-    return this.httpClient.get<OrganizationDto[]>(`${environment.MAIN_API_URL}/organizations/where-involved`);
+    return this.httpClient.get<OrganizationDto[]>(`${environment.JENKINS_SERVICE_API_URL}/organizations/where-involved`);
   }
 
   searchOrganizations(searchString: string): Observable<OrganizationSnippetDto[]> {
@@ -59,7 +59,7 @@ export class OrganizationService {
       this.loadingService.onLoadingFinished();
       return EMPTY;
     }
-    return this.httpClient.get<OrganizationSnippetDto[]>(`${environment.MAIN_API_URL}/organizations/search/${searchString}`);
+    return this.httpClient.get<OrganizationSnippetDto[]>(`${environment.JENKINS_SERVICE_API_URL}/organizations/search/${searchString}`);
   }
 
   deleteOrganization(organizationId: string) {
@@ -69,7 +69,7 @@ export class OrganizationService {
         'Cancel',
         () => {
           this.loadingService.onLoadingStart();
-          this.httpClient.delete<OrganizationDto>(`${environment.MAIN_API_URL}/organizations/${organizationId}`)
+          this.httpClient.delete<OrganizationDto>(`${environment.JENKINS_SERVICE_API_URL}/organizations/${organizationId}`)
               .subscribe((organization) => {
                 this.modalService.hidePopupModal();
                 this.modalService.showDefaultModal('Organization', `Organization with ID: ${organization.id} successfully deleted`);

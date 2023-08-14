@@ -89,7 +89,7 @@ export class AuthService {
   }
 
   doLogin(): void {
-    this.httpClient.get<unknown>(`${environment.MAIN_API_URL}/`, {withCredentials: true})
+    this.httpClient.get<unknown>(`${environment.GATEWAY_API_RAW_URL}/`, {withCredentials: true})
         .subscribe((response) => {
           window.alert(JSON.stringify(response));
         });
@@ -102,21 +102,7 @@ export class AuthService {
     this.deleteUserInfo();
     this.isLoggedIn.next(false);
     this.userInfo.next(AuthService.DEFAULT_USER);
-    this.httpClient.get<unknown>(`${environment.MAIN_API_URL}/logout`, {withCredentials: true}).subscribe(
-        (_) => {
-          this.router.navigate([`/${RoutePaths.LANDING_PAGE}`]).catch((reason) => window.alert(reason));
-        },
-    );
-  }
-
-  doGoogleLogin() {
-    window.location.href = `${environment.MAIN_API_URL}/auth/google`;
-  }
-
-  onSuccessfulGoogleLogin() {
-    this.profileService.getUserInfo().subscribe((userInfo) => {
-      this.onSuccessfulLogin(userInfo);
-    });
+    window.location.href = `${environment.GATEWAY_API_RAW_URL}/logout`;
   }
 
   private onSuccessfulLogin(userInfo: UserDto) {

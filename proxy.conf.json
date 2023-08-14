@@ -6,5 +6,9 @@
     },
     "changeOrigin": true,
     "secure": false
+  },
+  "/jenkins/*": {
+    "target": "http://localhost:8082",
+    "secure": false
   }
 }

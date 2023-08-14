@@ -11,11 +11,11 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   public getProducts(organizationId: string): Observable<ProductDto[]> {
-    return this.httpClient.get<ProductDto[]>(`${environment.MAIN_API_URL}/products/${organizationId}`);
+    return this.httpClient.get<ProductDto[]>(`${environment.JENKINS_SERVICE_API_URL}/products/${organizationId}`);
   }
 
   public createProduct(name: string, organizationId: string): Observable<ProductDto> {
-    return this.httpClient.post<ProductDto>(`${environment.MAIN_API_URL}/products`, {
+    return this.httpClient.post<ProductDto>(`${environment.JENKINS_SERVICE_API_URL}/products`, {
       name,
       organizationId,
     });
