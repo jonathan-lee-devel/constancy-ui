@@ -1,11 +1,9 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserDto} from '../../dtos/auth/UserDto';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
-import {LoginDto} from '../../dtos/auth/LoginDto';
-import {LogoutDto} from '../../dtos/auth/LogoutDto';
 import {ProfileService} from '../profile/profile.service';
 import {RoutePaths} from '../../app-routing.module';
 
@@ -89,10 +87,7 @@ export class AuthService {
   }
 
   doLogin(): void {
-    this.httpClient.get<unknown>(`${environment.GATEWAY_API_RAW_URL}/`, {withCredentials: true})
-        .subscribe((response) => {
-          window.alert(JSON.stringify(response));
-        });
+    window.location.href = environment.GATEWAY_API_RAW_URL;
   }
 
   /**
